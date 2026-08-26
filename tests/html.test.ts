@@ -16,10 +16,13 @@ import {
   li,
   link,
   p,
+  option,
   render,
   renderWithValidation,
+  select,
   table,
   td,
+  textarea,
   text,
   tr,
   ul,
@@ -98,6 +101,16 @@ describe('HTML builder API', () => {
     const result = validate(input());
     expect(result.valid).toBe(true);
     expect(formatValidationResult(result)).toContain('warning: $[0]: input should have a type attribute.');
+  });
+
+  it('builds form controls and validates option placement', () => {
+    const control = select(option('One'));
+    expect(render(control)).toBe('<select><option>One</option></select>');
+    expect(render(textarea('Notes <safe>'))).toBe('<textarea>Notes &lt;safe&gt;</textarea>');
+    expect(validate(control)).toEqual({valid: true, issues: []});
+    expect(formatValidationResult(validate(option('orphan')))).toContain(
+      'error: $[0]: option must be a child of select.'
+    );
   });
 
   it('stores validation errors only for validated renders', () => {

@@ -23,12 +23,15 @@ import {
   li,
   link,
   ol,
+  option,
   p,
   render,
   renderWithValidation,
+  select,
   span,
   table,
   td,
+  textarea,
   text,
   th,
   title,
@@ -215,6 +218,18 @@ export class HtmlExtension implements TurboWarpExtension {
 
   public input(): string {
     return encode(input());
+  }
+
+  public textarea(args: {CONTENT: unknown}): string {
+    return encode(textarea(decodeOrText(args.CONTENT)));
+  }
+
+  public select(args: {CONTENT: unknown}): string {
+    return encode(select(decodeOrText(args.CONTENT)));
+  }
+
+  public option(args: {CONTENT: unknown}): string {
+    return encode(option(decodeOrText(args.CONTENT)));
   }
 
   public button(args: {CONTENT: unknown}): string {

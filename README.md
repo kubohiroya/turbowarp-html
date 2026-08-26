@@ -402,6 +402,36 @@ Creates a void input element.
 | Type | Reporter |
 | Opcode | `input` |
 
+### `textarea [CONTENT]`
+
+Creates a textarea element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `textarea` |
+| `CONTENT` | String, default: `` |
+
+### `select [CONTENT]`
+
+Creates a select element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `select` |
+| `CONTENT` | String, default: `` |
+
+### `option [CONTENT]`
+
+Creates an option element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `option` |
+| `CONTENT` | String, default: `Choice` |
+
 ### `button [CONTENT]`
 
 Creates a button element.
