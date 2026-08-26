@@ -170,6 +170,16 @@
       "arguments": []
     },
     {
+      "opcode": "isValidHtml",
+      "blockType": "BOOLEAN",
+      "arguments": [
+        {
+          "id": "FRAGMENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
       "opcode": "label",
       "blockType": "REPORTER",
       "arguments": [
@@ -178,6 +188,16 @@
           "type": "STRING"
         }
       ]
+    },
+    {
+      "opcode": "lastRenderHasValidationErrors",
+      "blockType": "BOOLEAN",
+      "arguments": []
+    },
+    {
+      "opcode": "lastValidationErrors",
+      "blockType": "REPORTER",
+      "arguments": []
     },
     {
       "opcode": "li",
@@ -225,6 +245,16 @@
     },
     {
       "opcode": "render",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "FRAGMENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "renderWithValidation",
       "blockType": "REPORTER",
       "arguments": [
         {
@@ -309,6 +339,16 @@
       "arguments": [
         {
           "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "validateHtml",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "FRAGMENT",
           "type": "STRING"
         }
       ]

@@ -12,6 +12,16 @@ HTML は immutable な `text`、`element`、`sequence`、`empty` フラグメン
 
 タグ名と属性名は保守的な名前パターンで検証します。初期版では `script`、`style`、`iframe`、`object`、`embed`、`on*` 属性、`javascript:` などの危険な `href`/`src` URL を拒否します。raw HTML ブロックは v1 では提供しません。
 
+## バリデーション
+
+validator は軽量なツリーチェックです。`render HTML [FRAGMENT]` は validation なしでレンダリングします。`render HTML with validation [FRAGMENT]` はレンダリング前に validation を実行し、直近の validated render の validation 結果を保持します。保持された error 文字列は `last HTML validation errors`、boolean 状態は `last rendered HTML has validation errors?` から取得できます。
+
+これは HTTP レスポンス処理との連携点です。server 拡張は validation 付き render ブロックを使い、その後で保持済み error を確認し、必要ならレスポンス本文を説明付きエラーページに差し替え、同じ診断をログに出せます。
+
+void element の子、`ul`/`ol` 外の `li`、`tr` 外の `th`/`td`、table/table section 外の `tr`、nested form などは error として報告します。空フラグメント、複数 root、`head`/`body` の配置、`body` 不足、`img` の `alt` 不足、`a` の `href` 不足、`input` の `type` 不足などは warning として報告します。
+
+完全な HTML conformance checker の代替ではありません。
+
 ## TurboWarp 境界
 
 reporter block 間では `turbowarp-html:v1:` 接頭辞付きの値を渡します。content 引数に通常文字列が渡された場合は text node として扱い、trusted HTML として解釈しません。

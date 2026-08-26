@@ -9,6 +9,7 @@ A TurboWarp extension for building HTML as immutable structured fragments and re
 - creates escaped text fragments, elements, attributes, and sibling sequences;
 - keeps intermediate values as a structured tree instead of concatenated raw HTML strings;
 - rejects unsafe tag names, event-handler attributes, and executable URL schemes;
+- offers separate HTML render blocks with and without validation;
 - renders void elements such as `img` and `input` with HTML semantics;
 - exports a block-free TypeScript composition API from `src/html.ts`.
 
@@ -94,12 +95,60 @@ Creates a fragment sequence from two HTML fragments.
 
 ### `render HTML [FRAGMENT]`
 
-Renders an HTML fragment to final HTML text.
+Renders an HTML fragment to final HTML text without updating stored validation errors.
 
 | Property | Value |
 |---|---|
 | Type | Reporter |
 | Opcode | `render` |
+| `FRAGMENT` | String, default: `` |
+
+### `render HTML with validation [FRAGMENT]`
+
+Validates an HTML fragment, stores any validation errors, and renders final HTML text.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `renderWithValidation` |
+| `FRAGMENT` | String, default: `` |
+
+### `last HTML validation errors`
+
+Returns validation errors stored by the most recent render HTML block.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `lastValidationErrors` |
+
+### `last rendered HTML has validation errors?`
+
+Reports whether the most recent render HTML block stored validation errors.
+
+| Property | Value |
+|---|---|
+| Type | Boolean |
+| Opcode | `lastRenderHasValidationErrors` |
+
+### `validate HTML [FRAGMENT]`
+
+Returns simple validation diagnostics for an HTML fragment.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `validateHtml` |
+| `FRAGMENT` | String, default: `` |
+
+### `HTML [FRAGMENT] is valid?`
+
+Reports whether simple validation found no HTML errors.
+
+| Property | Value |
+|---|---|
+| Type | Boolean |
+| Opcode | `isValidHtml` |
 | `FRAGMENT` | String, default: `` |
 
 ### `link [CONTENT] URL [URL]`
@@ -369,7 +418,11 @@ Creates a button element.
 
 Scratch reporter blocks exchange opaque `turbowarp-html:v1:` values while builder blocks are chained. Ordinary strings passed into content positions become escaped text nodes. The final HTML string is produced only by `render HTML [FRAGMENT]`.
 
-The TypeScript API exposes `text`, `element`, common element factories, `withAttribute`, `concat`, and `render`. All builder functions return new values and do not mutate their inputs.
+The TypeScript API exposes `text`, `element`, common element factories, `withAttribute`, `concat`, `render`, `renderWithValidation`, and `validate`. All builder functions return new values and do not mutate their inputs.
+
+Use `render HTML [FRAGMENT]` when validation is not needed. Use `render HTML with validation [FRAGMENT]` when the final Builder-pattern output should also run validation and store validation errors from that render. Other extensions can read those errors with `last HTML validation errors` or check `last rendered HTML has validation errors?` after rendering. This lets an HTTP extension choose to return an explanatory error page and log the same diagnostics.
+
+Validation is intentionally lightweight. It catches common mistakes such as void elements with children, misplaced `li`/table cells, nested forms, missing important `img` attributes, and unusual `html`/`head`/`body` structure. It is not a full HTML conformance checker.
 
 ## Development
 

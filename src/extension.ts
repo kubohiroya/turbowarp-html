@@ -14,6 +14,8 @@ import {
   h5,
   h6,
   head,
+  getLastRenderValidationErrorText,
+  getLastRenderValidationErrors,
   html,
   image,
   input,
@@ -23,6 +25,7 @@ import {
   ol,
   p,
   render,
+  renderWithValidation,
   span,
   table,
   td,
@@ -31,11 +34,14 @@ import {
   title,
   tr,
   ul,
+  formatValidationResult,
+  isValid,
+  validate,
   withAttribute,
   type HtmlFragment
 } from './html';
 
-type BlockTypeName = 'REPORTER';
+type BlockTypeName = 'REPORTER' | 'BOOLEAN';
 type ArgumentTypeName = 'STRING';
 
 interface DefinitionArgument {
@@ -89,6 +95,26 @@ export class HtmlExtension implements TurboWarpExtension {
 
   public render(args: {FRAGMENT: unknown}): string {
     return render(decodeOrText(args.FRAGMENT));
+  }
+
+  public renderWithValidation(args: {FRAGMENT: unknown}): string {
+    return renderWithValidation(decodeOrText(args.FRAGMENT));
+  }
+
+  public lastValidationErrors(): string {
+    return getLastRenderValidationErrorText();
+  }
+
+  public lastRenderHasValidationErrors(): boolean {
+    return getLastRenderValidationErrors().length > 0;
+  }
+
+  public validateHtml(args: {FRAGMENT: unknown}): string {
+    return formatValidationResult(validate(decodeOrText(args.FRAGMENT)));
+  }
+
+  public isValidHtml(args: {FRAGMENT: unknown}): boolean {
+    return isValid(decodeOrText(args.FRAGMENT));
   }
 
   public link(args: {CONTENT: unknown; URL: unknown}): string {
