@@ -11,7 +11,10 @@ TurboWarp 上で HTML を immutable な構造化フラグメントとして組�
 - 危険なタグ名、`on*` 属性、実行可能 URL scheme を拒否します。
 - validation なしの HTML 化と、validation して直近 error を保持する HTML 化を選べます。
 - `img` や `input` などの void element を HTML セマンティクスに沿って出力します。
+- 教育用途の CSS は専用の `style [CSS]` ブロックで記述できます。
 - ブロックなしで使える TypeScript composition API も `src/html.ts` から提供します。
+
+CSS を使う場合は、要素に `class` 属性を付け、`head` 内の `style [CSS]` で class を定義する構成を推奨します。JavaScript や `on*` event handler 属性は引き続きサポートしません。CSS は要素を隠したり UI を模倣したりできるため、信頼できるプロジェクトだけを読み込んでください。
 
 ## HTTP Server 連携
 

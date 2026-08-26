@@ -130,6 +130,13 @@
       "arguments": {"CONTENT": {"type": "STRING", "defaultValue": "Status"}}
     },
     {
+      "opcode": "style",
+      "blockType": "REPORTER",
+      "text": "style [CSS]",
+      "description": "Creates a style element for educational CSS.",
+      "arguments": {"CSS": {"type": "STRING", "defaultValue": ".card { color: red; }"}}
+    },
+    {
       "opcode": "h1",
       "blockType": "REPORTER",
       "text": "h1 [CONTENT]",
