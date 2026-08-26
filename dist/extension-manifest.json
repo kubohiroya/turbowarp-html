@@ -1,0 +1,336 @@
+{
+  "formatVersion": 1,
+  "id": "kubohiroyahtml",
+  "blocks": [
+    {
+      "opcode": "body",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "button",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "concat",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "LEFT",
+          "type": "STRING"
+        },
+        {
+          "id": "RIGHT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "div",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "element",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        },
+        {
+          "id": "TAG",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "form",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h1",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h2",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h3",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h4",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h5",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "h6",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "head",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "html",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "image",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "ALT",
+          "type": "STRING"
+        },
+        {
+          "id": "SRC",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "input",
+      "blockType": "REPORTER",
+      "arguments": []
+    },
+    {
+      "opcode": "label",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "li",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "link",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        },
+        {
+          "id": "URL",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "ol",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "p",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "render",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "FRAGMENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "span",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "table",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "td",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "text",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "TEXT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "th",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "title",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "tr",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "ul",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "withAttribute",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "ELEMENT",
+          "type": "STRING"
+        },
+        {
+          "id": "NAME",
+          "type": "STRING"
+        },
+        {
+          "id": "VALUE",
+          "type": "STRING"
+        }
+      ]
+    }
+  ],
+  "menus": []
+}

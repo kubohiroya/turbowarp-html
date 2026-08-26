@@ -1,55 +1,395 @@
-# TurboWarp HTML Builder
+# TurboWarp HTML
 
-`@kubohiroya/turbowarp-html` provides safe immutable Builder-pattern-style HTML fragments for TurboWarp and TypeScript.
+[日本語](README.ja.md)
 
-## TurboWarp model
+A TurboWarp extension for building HTML as immutable structured fragments and rendering it only at the output boundary.
 
-Blocks create opaque fragment handles. Fragments can be nested, combined, decorated with attributes, and rendered only at the output boundary:
+## What it does
 
-```text
-h1 (text "Server status")
-  followed by p (text "Running")
-  -> div
-  -> with attribute class = "card"
-  -> render HTML
+- creates escaped text fragments, elements, attributes, and sibling sequences;
+- keeps intermediate values as a structured tree instead of concatenated raw HTML strings;
+- rejects unsafe tag names, event-handler attributes, and executable URL schemes;
+- renders void elements such as `img` and `input` with HTML semantics;
+- exports a block-free TypeScript composition API from `src/html.ts`.
+
+## Requirements and safety
+
+- Node.js 22 or newer;
+- pnpm through Corepack;
+- TurboWarp's unsandboxed extension option is not required.
+
+Text node content is escaped by default. Attribute values are quoted and escaped. The initial version intentionally has no raw HTML block.
+
+## Installation
+
+```bash
+corepack enable
+pnpm install --frozen-lockfile
 ```
 
-Result:
+The package is version-pinned when used from npm:
 
-```html
-<div class="card"><h1>Server status</h1><p>Running</p></div>
+```bash
+pnpm add --save-exact @kubohiroya/turbowarp-html@0.1.0
 ```
 
-Plain text is escaped. Ordinary blocks do not accept raw HTML.
-
-## TypeScript API
+## Quick Start
 
 ```ts
-import {append, div, h1, p, renderHtml, text, withAttribute} from '@kubohiroya/turbowarp-html/core';
+import {body, concat, h1, html, p, render} from '@kubohiroya/turbowarp-html';
 
-const content = append(h1(text('Server status')), p(text('Running')));
-const card = withAttribute(div(content), 'class', 'card');
-console.log(renderHtml(card));
+const page = html(body(concat(h1('Server status'), p('ready'))));
+const responseBody = render(page);
 ```
 
-## HTTP response example
+For `turbowarp-http-server`, pass the rendered string as the response body and select `Content-Type: text/html; charset=utf-8`. The HTTP server does not need a package dependency on this extension.
 
-The package is intentionally independent of `turbowarp-http-server`. Render the fragment to a string and return it with:
+## Block reference
 
-```text
-Content-Type: text/html; charset=utf-8
+<!-- BEGIN GENERATED BLOCKS -->
+
+### `text [TEXT]`
+
+Creates an escaped HTML text fragment.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `text` |
+| `TEXT` | String, default: `Hello <world>` |
+
+### `element [TAG] content [CONTENT]`
+
+Creates a valid HTML element with escaped structured content.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `element` |
+| `TAG` | String, default: `section` |
+| `CONTENT` | String, default: `` |
+
+### `[ELEMENT] with attribute [NAME] = [VALUE]`
+
+Returns a new element with a safe escaped attribute value.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `withAttribute` |
+| `ELEMENT` | String, default: `` |
+| `NAME` | String, default: `class` |
+| `VALUE` | String, default: `card` |
+
+### `[LEFT] followed by [RIGHT]`
+
+Creates a fragment sequence from two HTML fragments.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `concat` |
+| `LEFT` | String, default: `` |
+| `RIGHT` | String, default: `` |
+
+### `render HTML [FRAGMENT]`
+
+Renders an HTML fragment to final HTML text.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `render` |
+| `FRAGMENT` | String, default: `` |
+
+### `link [CONTENT] URL [URL]`
+
+Creates an anchor with a conservatively validated URL.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `link` |
+| `CONTENT` | String, default: `TurboWarp` |
+| `URL` | String, default: `https://turbowarp.org/` |
+
+### `image URL [SRC] alt [ALT]`
+
+Creates a void image element with safe src and escaped alt text.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `image` |
+| `SRC` | String, default: `/status.png` |
+| `ALT` | String, default: `status` |
+
+### `html [CONTENT]`
+
+Creates an html element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `html` |
+| `CONTENT` | String, default: `` |
+
+### `head [CONTENT]`
+
+Creates a head element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `head` |
+| `CONTENT` | String, default: `` |
+
+### `body [CONTENT]`
+
+Creates a body element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `body` |
+| `CONTENT` | String, default: `` |
+
+### `title [CONTENT]`
+
+Creates a title element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `title` |
+| `CONTENT` | String, default: `Status` |
+
+### `h1 [CONTENT]`
+
+Creates an h1 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h1` |
+| `CONTENT` | String, default: `Server status` |
+
+### `h2 [CONTENT]`
+
+Creates an h2 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h2` |
+| `CONTENT` | String, default: `Heading` |
+
+### `h3 [CONTENT]`
+
+Creates an h3 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h3` |
+| `CONTENT` | String, default: `Heading` |
+
+### `h4 [CONTENT]`
+
+Creates an h4 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h4` |
+| `CONTENT` | String, default: `Heading` |
+
+### `h5 [CONTENT]`
+
+Creates an h5 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h5` |
+| `CONTENT` | String, default: `Heading` |
+
+### `h6 [CONTENT]`
+
+Creates an h6 element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `h6` |
+| `CONTENT` | String, default: `Heading` |
+
+### `p [CONTENT]`
+
+Creates a paragraph element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `p` |
+| `CONTENT` | String, default: `Ready` |
+
+### `div [CONTENT]`
+
+Creates a div element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `div` |
+| `CONTENT` | String, default: `` |
+
+### `span [CONTENT]`
+
+Creates a span element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `span` |
+| `CONTENT` | String, default: `` |
+
+### `ul [CONTENT]`
+
+Creates an unordered list element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `ul` |
+| `CONTENT` | String, default: `` |
+
+### `ol [CONTENT]`
+
+Creates an ordered list element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `ol` |
+| `CONTENT` | String, default: `` |
+
+### `li [CONTENT]`
+
+Creates a list item element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `li` |
+| `CONTENT` | String, default: `item` |
+
+### `table [CONTENT]`
+
+Creates a table element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `table` |
+| `CONTENT` | String, default: `` |
+
+### `tr [CONTENT]`
+
+Creates a table row element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `tr` |
+| `CONTENT` | String, default: `` |
+
+### `th [CONTENT]`
+
+Creates a table header cell element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `th` |
+| `CONTENT` | String, default: `Name` |
+
+### `td [CONTENT]`
+
+Creates a table data cell element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `td` |
+| `CONTENT` | String, default: `Value` |
+
+### `form [CONTENT]`
+
+Creates a form element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `form` |
+| `CONTENT` | String, default: `` |
+
+### `label [CONTENT]`
+
+Creates a label element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `label` |
+| `CONTENT` | String, default: `Name` |
+
+### `input`
+
+Creates a void input element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `input` |
+
+### `button [CONTENT]`
+
+Creates a button element.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `button` |
+| `CONTENT` | String, default: `Submit` |
+
+<!-- END GENERATED BLOCKS -->
+
+## Important behavior
+
+Scratch reporter blocks exchange opaque `turbowarp-html:v1:` values while builder blocks are chained. Ordinary strings passed into content positions become escaped text nodes. The final HTML string is produced only by `render HTML [FRAGMENT]`.
+
+The TypeScript API exposes `text`, `element`, common element factories, `withAttribute`, `concat`, and `render`. All builder functions return new values and do not mutate their inputs.
+
+## Development
+
+```bash
+pnpm run check
 ```
 
-## Safety model
+The check runs type checking, linting, tests, generated README validation, `dist/` reproducibility, repository policy validation, and an npm package dry run.
 
-- Text nodes and attribute values are escaped.
-- `on*` event-handler attributes are rejected.
-- `script`, `iframe`, `object`, and `embed` are rejected by the safe generic element builder.
-- URL-bearing attributes reject executable schemes such as `javascript:`.
-- Raw HTML is intentionally not part of the initial API.
+## Release
 
-This is a safe construction boundary, not a general-purpose HTML sanitizer for arbitrary pre-existing HTML.
+Keep `package.json` as the version source of truth. Before publishing, run:
+
+```bash
+pnpm run check
+npm pack --dry-run --ignore-scripts
+```
+
+Release artifacts include `dist/turbowarp-html.js`, `dist/extension-manifest.json`, `README.md`, `README.ja.md`, and `LICENSE`.
 
 ## License
 
-MPL-2.0
+SPDX-License-Identifier: MPL-2.0
