@@ -35,6 +35,9 @@ describe('HtmlExtension', () => {
     expect(info.blocks.map((block) => block.opcode)).toContain('renderWithValidation');
     expect(info.blocks.map((block) => block.opcode)).toContain('validateHtml');
     expect(info.blocks.map((block) => block.opcode)).toContain('isValidHtml');
+    expect(info.blocks.map((block) => block.opcode)).toContain('textarea');
+    expect(info.blocks.map((block) => block.opcode)).toContain('select');
+    expect(info.blocks.map((block) => block.opcode)).toContain('option');
     expect(info.blocks.map((block) => block.opcode)).not.toContain('rawHtml');
   });
 
@@ -56,6 +59,21 @@ describe('HtmlExtension', () => {
       VALUE: 'card'
     });
     expect(extension.render({FRAGMENT: card})).toBe('<div class="card">ok</div>');
+  });
+
+  it('builds form controls through reporter values', () => {
+    const extension = new HtmlExtension();
+    const choice = extension.option({CONTENT: 'Camera'});
+    const select = extension.withAttribute({
+      ELEMENT: extension.select({CONTENT: choice}),
+      NAME: 'name',
+      VALUE: 'source'
+    });
+    const notes = extension.textarea({CONTENT: 'Notes <escaped>'});
+
+    expect(extension.render({FRAGMENT: extension.concat({LEFT: select, RIGHT: notes})})).toBe(
+      '<select name="source"><option>Camera</option></select><textarea>Notes &lt;escaped&gt;</textarea>'
+    );
   });
 
   it('validates reporter-built fragments', () => {

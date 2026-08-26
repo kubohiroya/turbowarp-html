@@ -263,6 +263,27 @@
       "arguments": {}
     },
     {
+      "opcode": "textarea",
+      "blockType": "REPORTER",
+      "text": "textarea [CONTENT]",
+      "description": "Creates a textarea element.",
+      "arguments": {"CONTENT": {"type": "STRING", "defaultValue": ""}}
+    },
+    {
+      "opcode": "select",
+      "blockType": "REPORTER",
+      "text": "select [CONTENT]",
+      "description": "Creates a select element.",
+      "arguments": {"CONTENT": {"type": "STRING", "defaultValue": ""}}
+    },
+    {
+      "opcode": "option",
+      "blockType": "REPORTER",
+      "text": "option [CONTENT]",
+      "description": "Creates an option element.",
+      "arguments": {"CONTENT": {"type": "STRING", "defaultValue": "Choice"}}
+    },
+    {
       "opcode": "button",
       "blockType": "REPORTER",
       "text": "button [CONTENT]",

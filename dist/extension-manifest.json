@@ -234,6 +234,16 @@
       ]
     },
     {
+      "opcode": "option",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
       "opcode": "p",
       "blockType": "REPORTER",
       "arguments": [
@@ -259,6 +269,16 @@
       "arguments": [
         {
           "id": "FRAGMENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "select",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
           "type": "STRING"
         }
       ]
@@ -299,6 +319,16 @@
       "arguments": [
         {
           "id": "TEXT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "textarea",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
           "type": "STRING"
         }
       ]

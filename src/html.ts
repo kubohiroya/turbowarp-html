@@ -217,6 +217,9 @@ export const td = createElementFactory('td');
 export const form = createElementFactory('form');
 export const label = createElementFactory('label');
 export const input = createElementFactory('input');
+export const textarea = createElementFactory('textarea');
+export const select = createElementFactory('select');
+export const option = createElementFactory('option');
 export const button = createElementFactory('button');
 
 export function isVoidElement(tagName: string): boolean {
@@ -314,6 +317,13 @@ function validateElementPlacement(
       severity: 'error',
       path,
       message: `${fragment.tagName} must be a child of tr.`
+    });
+  }
+  if (fragment.tagName === 'option' && parent?.tagName !== 'select') {
+    issues.push({
+      severity: 'error',
+      path,
+      message: 'option must be a child of select.'
     });
   }
   if (fragment.tagName === 'form' && ancestors.some((ancestor) => ancestor.tagName === 'form')) {

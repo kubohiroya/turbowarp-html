@@ -4,6 +4,7 @@ import {
   concat,
   div,
   element,
+  empty,
   formatValidationResult,
   getLastRenderValidationErrorText,
   getLastRenderValidationErrors,
@@ -16,10 +17,13 @@ import {
   li,
   link,
   p,
+  option,
   render,
   renderWithValidation,
+  select,
   table,
   td,
+  textarea,
   text,
   tr,
   ul,
@@ -40,6 +44,12 @@ describe('HTML builder API', () => {
   it('composes sibling fragments repeatedly', () => {
     const items = concat(concat(li('one'), li('two')), li('three'));
     expect(render(ul(items))).toBe('<ul><li>one</li><li>two</li><li>three</li></ul>');
+  });
+
+  it('renders empty fragments explicitly at the output boundary', () => {
+    expect(render(empty)).toBe('');
+    expect(render(concat(empty, empty))).toBe('');
+    expect(formatValidationResult(validate(empty))).toContain('warning: $: HTML fragment is empty.');
   });
 
   it('adds attributes immutably and escapes attribute values', () => {
@@ -98,6 +108,16 @@ describe('HTML builder API', () => {
     const result = validate(input());
     expect(result.valid).toBe(true);
     expect(formatValidationResult(result)).toContain('warning: $[0]: input should have a type attribute.');
+  });
+
+  it('builds form controls and validates option placement', () => {
+    const control = select(option('One'));
+    expect(render(control)).toBe('<select><option>One</option></select>');
+    expect(render(textarea('Notes <safe>'))).toBe('<textarea>Notes &lt;safe&gt;</textarea>');
+    expect(validate(control)).toEqual({valid: true, issues: []});
+    expect(formatValidationResult(validate(option('orphan')))).toContain(
+      'error: $[0]: option must be a child of select.'
+    );
   });
 
   it('stores validation errors only for validated renders', () => {

@@ -5,24 +5,52 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>TurboWarp HTML documentation</title>
   <style>
-    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:900px;margin:0 auto;padding:2rem;line-height:1.6;color:#222}
-    code{background:#f3f3f3;padding:.1em .3em;border-radius:.25em}
-    pre{background:#f6f8fa;padding:1rem;overflow:auto;border-radius:.5rem}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:920px;margin:0 auto;padding:2rem;line-height:1.6;color:#1f2937}
+    code{background:#f3f4f6;padding:.1em .3em;border-radius:.25em}
+    pre{background:#f8fafc;border:1px solid #e5e7eb;padding:1rem;overflow:auto;border-radius:.5rem}
+    table{border-collapse:collapse;width:100%}
+    th,td{border:1px solid #d1d5db;padding:.5rem;text-align:left;vertical-align:top}
   </style>
 </head>
 <body>
   <h1>TurboWarp HTML</h1>
-  <p>This is the English user documentation published with the TurboWarp Extension Template.</p>
+  <p>TurboWarp HTML builds HTML as immutable structured fragments. Blocks create escaped text, elements, attributes, and sibling sequences; the final HTML string is produced only by an explicit render block.</p>
 
-  <h2>Blocks</h2>
-  <h3><code>hello [NAME]</code></h3>
-  <p>Returns a localized greeting for the supplied name.</p>
+  <h2>Core Flow</h2>
+  <pre><code>text [Server status]
+h1 [text result]
+body [h1 result]
+html [body result]
+render HTML [html result]</code></pre>
 
-  <h2>Template requirement</h2>
-  <p>Repositories created from this template should replace this page with English documentation for their extension and keep the GitHub Pages URL in <code>extensionConfig.docsURI</code>.</p>
-  <p>They should also replace the example <code>blockIconURI</code> with a meaningful, self-contained SVG icon encoded as <code>data:image/svg+xml;base64,...</code>.</p>
+  <h2>Safety Model</h2>
+  <ul>
+    <li>Text node content is escaped by default.</li>
+    <li>Attribute values are quoted and escaped.</li>
+    <li>Event-handler attributes such as <code>onclick</code> are rejected.</li>
+    <li>Executable URL schemes such as <code>javascript:</code> are rejected for link and image URLs.</li>
+    <li>No raw HTML injection block is provided.</li>
+  </ul>
 
-  <h2>Development</h2>
-  <p>See the repository README and architecture documentation for build, test, release, and compatibility details.</p>
+  <h2>Common Blocks</h2>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Blocks</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Content</td><td><code>text</code>, <code>concat</code>, <code>render</code>, <code>renderWithValidation</code></td></tr>
+      <tr><td>Document</td><td><code>html</code>, <code>head</code>, <code>body</code>, <code>title</code></td></tr>
+      <tr><td>Text structure</td><td><code>h1</code> through <code>h6</code>, <code>p</code>, <code>div</code>, <code>span</code></td></tr>
+      <tr><td>Links and media</td><td><code>link</code>, <code>image</code></td></tr>
+      <tr><td>Lists and tables</td><td><code>ul</code>, <code>ol</code>, <code>li</code>, <code>table</code>, <code>tr</code>, <code>th</code>, <code>td</code></td></tr>
+      <tr><td>Forms</td><td><code>form</code>, <code>label</code>, <code>input</code>, <code>textarea</code>, <code>select</code>, <code>option</code>, <code>button</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>HTTP Server Interoperability</h2>
+  <p>For <code>turbowarp-http-server</code>, pass the rendered string as the response body and set <code>Content-Type: text/html; charset=utf-8</code>. The HTTP server does not need to depend on this package.</p>
+
+  <h2>TypeScript API</h2>
+  <p>The package also exports block-free builder functions from <code>@kubohiroya/turbowarp-html</code>, including <code>text</code>, <code>element</code>, common element factories, <code>withAttribute</code>, <code>concat</code>, <code>render</code>, <code>renderWithValidation</code>, and <code>validate</code>.</p>
 </body>
 </html>
