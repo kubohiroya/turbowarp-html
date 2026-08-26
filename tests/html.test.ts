@@ -4,6 +4,7 @@ import {
   concat,
   div,
   element,
+  empty,
   formatValidationResult,
   getLastRenderValidationErrorText,
   getLastRenderValidationErrors,
@@ -43,6 +44,12 @@ describe('HTML builder API', () => {
   it('composes sibling fragments repeatedly', () => {
     const items = concat(concat(li('one'), li('two')), li('three'));
     expect(render(ul(items))).toBe('<ul><li>one</li><li>two</li><li>three</li></ul>');
+  });
+
+  it('renders empty fragments explicitly at the output boundary', () => {
+    expect(render(empty)).toBe('');
+    expect(render(concat(empty, empty))).toBe('');
+    expect(formatValidationResult(validate(empty))).toContain('warning: $: HTML fragment is empty.');
   });
 
   it('adds attributes immutably and escapes attribute values', () => {
