@@ -92,6 +92,16 @@
       }
     },
     {
+      "opcode": "externalLink",
+      "blockType": "REPORTER",
+      "text": "external link [CONTENT] URL [URL]",
+      "description": "Creates an anchor that opens in a new tab with safe rel attributes.",
+      "arguments": {
+        "CONTENT": {"type": "STRING", "defaultValue": "TurboWarp"},
+        "URL": {"type": "STRING", "defaultValue": "https://turbowarp.org/"}
+      }
+    },
+    {
       "opcode": "image",
       "blockType": "REPORTER",
       "text": "image URL [SRC] alt [ALT]",
@@ -99,6 +109,42 @@
       "arguments": {
         "SRC": {"type": "STRING", "defaultValue": "/status.png"},
         "ALT": {"type": "STRING", "defaultValue": "status"}
+      }
+    },
+    {
+      "opcode": "turbowarpProjectFrame",
+      "blockType": "REPORTER",
+      "text": "TurboWarp project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]",
+      "description": "Creates a safe iframe for playing a TurboWarp project.",
+      "arguments": {
+        "PROJECT_ID": {"type": "STRING", "defaultValue": "414716080"},
+        "TITLE": {"type": "STRING", "defaultValue": "TurboWarp project"},
+        "WIDTH": {"type": "STRING", "defaultValue": "482"},
+        "HEIGHT": {"type": "STRING", "defaultValue": "412"}
+      }
+    },
+    {
+      "opcode": "scratchProjectFrame",
+      "blockType": "REPORTER",
+      "text": "Scratch project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]",
+      "description": "Creates a safe iframe for playing a Scratch project.",
+      "arguments": {
+        "PROJECT_ID": {"type": "STRING", "defaultValue": "104"},
+        "TITLE": {"type": "STRING", "defaultValue": "Scratch project"},
+        "WIDTH": {"type": "STRING", "defaultValue": "485"},
+        "HEIGHT": {"type": "STRING", "defaultValue": "402"}
+      }
+    },
+    {
+      "opcode": "packagedProjectFrame",
+      "blockType": "REPORTER",
+      "text": "packaged TurboWarp project iframe URL [SRC] title [TITLE] width [WIDTH] height [HEIGHT]",
+      "description": "Creates a safe iframe for playing a same-site TurboWarp Packager HTML file.",
+      "arguments": {
+        "SRC": {"type": "STRING", "defaultValue": "./project.html"},
+        "TITLE": {"type": "STRING", "defaultValue": "Packaged TurboWarp project"},
+        "WIDTH": {"type": "STRING", "defaultValue": "480"},
+        "HEIGHT": {"type": "STRING", "defaultValue": "360"}
       }
     },
     {

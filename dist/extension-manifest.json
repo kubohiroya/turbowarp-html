@@ -61,6 +61,20 @@
       ]
     },
     {
+      "opcode": "externalLink",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CONTENT",
+          "type": "STRING"
+        },
+        {
+          "id": "URL",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
       "opcode": "form",
       "blockType": "REPORTER",
       "arguments": [
@@ -254,6 +268,28 @@
       ]
     },
     {
+      "opcode": "packagedProjectFrame",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "HEIGHT",
+          "type": "STRING"
+        },
+        {
+          "id": "SRC",
+          "type": "STRING"
+        },
+        {
+          "id": "TITLE",
+          "type": "STRING"
+        },
+        {
+          "id": "WIDTH",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
       "opcode": "render",
       "blockType": "REPORTER",
       "arguments": [
@@ -269,6 +305,28 @@
       "arguments": [
         {
           "id": "FRAGMENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "scratchProjectFrame",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "HEIGHT",
+          "type": "STRING"
+        },
+        {
+          "id": "PROJECT_ID",
+          "type": "STRING"
+        },
+        {
+          "id": "TITLE",
+          "type": "STRING"
+        },
+        {
+          "id": "WIDTH",
           "type": "STRING"
         }
       ]
@@ -369,6 +427,28 @@
       "arguments": [
         {
           "id": "CONTENT",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "opcode": "turbowarpProjectFrame",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "HEIGHT",
+          "type": "STRING"
+        },
+        {
+          "id": "PROJECT_ID",
+          "type": "STRING"
+        },
+        {
+          "id": "TITLE",
+          "type": "STRING"
+        },
+        {
+          "id": "WIDTH",
           "type": "STRING"
         }
       ]

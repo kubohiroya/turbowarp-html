@@ -35,6 +35,10 @@ describe('HtmlExtension', () => {
     expect(info.blocks.map((block) => block.opcode)).toContain('renderWithValidation');
     expect(info.blocks.map((block) => block.opcode)).toContain('validateHtml');
     expect(info.blocks.map((block) => block.opcode)).toContain('isValidHtml');
+    expect(info.blocks.map((block) => block.opcode)).toContain('externalLink');
+    expect(info.blocks.map((block) => block.opcode)).toContain('turbowarpProjectFrame');
+    expect(info.blocks.map((block) => block.opcode)).toContain('scratchProjectFrame');
+    expect(info.blocks.map((block) => block.opcode)).toContain('packagedProjectFrame');
     expect(info.blocks.map((block) => block.opcode)).toContain('textarea');
     expect(info.blocks.map((block) => block.opcode)).toContain('select');
     expect(info.blocks.map((block) => block.opcode)).toContain('option');
@@ -60,6 +64,25 @@ describe('HtmlExtension', () => {
       VALUE: 'card'
     });
     expect(extension.render({FRAGMENT: card})).toBe('<div class="card">ok</div>');
+  });
+
+  it('builds external links and project iframes through reporter values', () => {
+    const extension = new HtmlExtension();
+    expect(extension.render({FRAGMENT: extension.externalLink({CONTENT: 'TurboWarp', URL: 'https://turbowarp.org/'})})).toBe(
+      '<a href="https://turbowarp.org/" rel="noopener noreferrer" target="_blank">TurboWarp</a>'
+    );
+    expect(
+      extension.render({
+        FRAGMENT: extension.turbowarpProjectFrame({
+          PROJECT_ID: '414716080',
+          TITLE: 'Example',
+          WIDTH: '482',
+          HEIGHT: '412'
+        })
+      })
+    ).toBe(
+      '<iframe allowfullscreen="" allowtransparency="true" frameborder="0" height="412" loading="lazy" scrolling="no" src="https://turbowarp.org/414716080/embed" style="color-scheme: auto" title="Example" width="482"></iframe>'
+    );
   });
 
   it('builds form controls through reporter values', () => {

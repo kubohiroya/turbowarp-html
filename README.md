@@ -11,6 +11,7 @@ A TurboWarp extension for building HTML as immutable structured fragments and re
 - rejects unsafe tag names, event-handler attributes, and executable URL schemes;
 - offers separate HTML render blocks with and without validation;
 - renders void elements such as `img` and `input` with HTML semantics;
+- provides dedicated blocks for Scratch, TurboWarp, and same-site TurboWarp Packager project iframes;
 - exports a block-free TypeScript composition API from `src/html.ts`.
 
 ## Requirements and safety
@@ -22,6 +23,8 @@ A TurboWarp extension for building HTML as immutable structured fragments and re
 Text node content is escaped by default. Attribute values are quoted and escaped. The initial version intentionally has no raw HTML block.
 
 CSS can be authored with the dedicated `style [CSS]` block for educational use. Prefer applying `class` attributes to elements and defining those classes in a `style [CSS]` block inside `head`. JavaScript and event-handler attributes remain unsupported. CSS can still visually hide, overlay, or imitate interface elements, so load projects only from sources you trust.
+
+Generic `iframe` elements remain unsupported. Use the dedicated Scratch, TurboWarp, or same-site Packager project iframe blocks when you need playable project embeds.
 
 ## Installation
 
@@ -172,6 +175,17 @@ Creates an anchor with a conservatively validated URL.
 | `CONTENT` | String, default: `TurboWarp` |
 | `URL` | String, default: `https://turbowarp.org/` |
 
+### `external link [CONTENT] URL [URL]`
+
+Creates an anchor that opens in a new tab with safe rel attributes.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `externalLink` |
+| `CONTENT` | String, default: `TurboWarp` |
+| `URL` | String, default: `https://turbowarp.org/` |
+
 ### `image URL [SRC] alt [ALT]`
 
 Creates a void image element with safe src and escaped alt text.
@@ -182,6 +196,45 @@ Creates a void image element with safe src and escaped alt text.
 | Opcode | `image` |
 | `SRC` | String, default: `/status.png` |
 | `ALT` | String, default: `status` |
+
+### `TurboWarp project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]`
+
+Creates a safe iframe for playing a TurboWarp project.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `turbowarpProjectFrame` |
+| `PROJECT_ID` | String, default: `414716080` |
+| `TITLE` | String, default: `TurboWarp project` |
+| `WIDTH` | String, default: `482` |
+| `HEIGHT` | String, default: `412` |
+
+### `Scratch project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]`
+
+Creates a safe iframe for playing a Scratch project.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `scratchProjectFrame` |
+| `PROJECT_ID` | String, default: `104` |
+| `TITLE` | String, default: `Scratch project` |
+| `WIDTH` | String, default: `485` |
+| `HEIGHT` | String, default: `402` |
+
+### `packaged TurboWarp project iframe URL [SRC] title [TITLE] width [WIDTH] height [HEIGHT]`
+
+Creates a safe iframe for playing a same-site TurboWarp Packager HTML file.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `packagedProjectFrame` |
+| `SRC` | String, default: `./project.html` |
+| `TITLE` | String, default: `Packaged TurboWarp project` |
+| `WIDTH` | String, default: `480` |
+| `HEIGHT` | String, default: `360` |
 
 ### `html [CONTENT]`
 

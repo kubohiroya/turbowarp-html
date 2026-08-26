@@ -6,6 +6,7 @@ import {
   concat,
   div,
   element,
+  externalLink,
   form,
   h1,
   h2,
@@ -25,8 +26,10 @@ import {
   ol,
   option,
   p,
+  packagedProjectFrame,
   render,
   renderWithValidation,
+  scratchProjectFrame,
   select,
   span,
   style,
@@ -37,6 +40,7 @@ import {
   th,
   title,
   tr,
+  turbowarpProjectFrame,
   ul,
   formatValidationResult,
   isValid,
@@ -125,8 +129,55 @@ export class HtmlExtension implements TurboWarpExtension {
     return encode(link(decodeOrText(args.CONTENT), Scratch.Cast.toString(args.URL)));
   }
 
+  public externalLink(args: {CONTENT: unknown; URL: unknown}): string {
+    return encode(externalLink(decodeOrText(args.CONTENT), Scratch.Cast.toString(args.URL)));
+  }
+
   public image(args: {SRC: unknown; ALT: unknown}): string {
     return encode(image(Scratch.Cast.toString(args.SRC), Scratch.Cast.toString(args.ALT)));
+  }
+
+  public turbowarpProjectFrame(args: {
+    PROJECT_ID: unknown;
+    TITLE: unknown;
+    WIDTH: unknown;
+    HEIGHT: unknown;
+  }): string {
+    return encode(
+      turbowarpProjectFrame(
+        Scratch.Cast.toString(args.PROJECT_ID),
+        Scratch.Cast.toString(args.TITLE),
+        Scratch.Cast.toString(args.WIDTH),
+        Scratch.Cast.toString(args.HEIGHT)
+      )
+    );
+  }
+
+  public scratchProjectFrame(args: {
+    PROJECT_ID: unknown;
+    TITLE: unknown;
+    WIDTH: unknown;
+    HEIGHT: unknown;
+  }): string {
+    return encode(
+      scratchProjectFrame(
+        Scratch.Cast.toString(args.PROJECT_ID),
+        Scratch.Cast.toString(args.TITLE),
+        Scratch.Cast.toString(args.WIDTH),
+        Scratch.Cast.toString(args.HEIGHT)
+      )
+    );
+  }
+
+  public packagedProjectFrame(args: {SRC: unknown; TITLE: unknown; WIDTH: unknown; HEIGHT: unknown}): string {
+    return encode(
+      packagedProjectFrame(
+        Scratch.Cast.toString(args.SRC),
+        Scratch.Cast.toString(args.TITLE),
+        Scratch.Cast.toString(args.WIDTH),
+        Scratch.Cast.toString(args.HEIGHT)
+      )
+    );
   }
 
   public html(args: {CONTENT: unknown}): string {
