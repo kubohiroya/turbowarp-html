@@ -9,6 +9,7 @@ TurboWarp 上で HTML を immutable な構造化フラグメントとして組�
 - エスケープ済みテキスト、要素、属性、兄弟フラグメント列を作れます。
 - 中間値は raw HTML 文字列ではなく、構造化ツリーとして保持します。
 - 危険なタグ名、`on*` 属性、実行可能 URL scheme を拒否します。
+- validation なしの HTML 化と、validation して直近 error を保持する HTML 化を選べます。
 - `img` や `input` などの void element を HTML セマンティクスに沿って出力します。
 - ブロックなしで使える TypeScript composition API も `src/html.ts` から提供します。
 

@@ -3,7 +3,7 @@ import {HtmlExtension} from '../src/extension.js';
 
 beforeEach(() => {
   vi.stubGlobal('Scratch', {
-    BlockType: {REPORTER: 'reporter'},
+    BlockType: {REPORTER: 'reporter', BOOLEAN: 'boolean'},
     ArgumentType: {STRING: 'string'},
     Cast: {
       toString: (value: unknown) => String(value),
@@ -32,6 +32,9 @@ describe('HtmlExtension', () => {
     const info = new HtmlExtension().getInfo() as {name: string; blocks: Array<{opcode: string}>};
     expect(info.name).toBe('TurboWarp HTML');
     expect(info.blocks.map((block) => block.opcode)).toContain('render');
+    expect(info.blocks.map((block) => block.opcode)).toContain('renderWithValidation');
+    expect(info.blocks.map((block) => block.opcode)).toContain('validateHtml');
+    expect(info.blocks.map((block) => block.opcode)).toContain('isValidHtml');
     expect(info.blocks.map((block) => block.opcode)).not.toContain('rawHtml');
   });
 
@@ -53,5 +56,32 @@ describe('HtmlExtension', () => {
       VALUE: 'card'
     });
     expect(extension.render({FRAGMENT: card})).toBe('<div class="card">ok</div>');
+  });
+
+  it('validates reporter-built fragments', () => {
+    const extension = new HtmlExtension();
+    const orphan = extension.li({CONTENT: 'orphan'});
+    expect(extension.isValidHtml({FRAGMENT: orphan})).toBe(false);
+    expect(extension.validateHtml({FRAGMENT: orphan})).toContain(
+      'error: $[0]: li must be a child of ul or ol.'
+    );
+  });
+
+  it('stores validation errors only from the validation render HTML call', () => {
+    const extension = new HtmlExtension();
+    expect(extension.lastRenderHasValidationErrors()).toBe(false);
+    expect(extension.lastValidationErrors()).toBe('');
+
+    extension.renderWithValidation({FRAGMENT: extension.input()});
+    expect(extension.lastRenderHasValidationErrors()).toBe(false);
+    expect(extension.lastValidationErrors()).toBe('');
+
+    extension.render({FRAGMENT: extension.li({CONTENT: 'orphan'})});
+    expect(extension.lastRenderHasValidationErrors()).toBe(false);
+    expect(extension.lastValidationErrors()).toBe('');
+
+    extension.renderWithValidation({FRAGMENT: extension.li({CONTENT: 'orphan'})});
+    expect(extension.lastRenderHasValidationErrors()).toBe(true);
+    expect(extension.lastValidationErrors()).toBe('$[0]: li must be a child of ul or ol.');
   });
 });

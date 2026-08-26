@@ -43,7 +43,42 @@
       "opcode": "render",
       "blockType": "REPORTER",
       "text": "render HTML [FRAGMENT]",
-      "description": "Renders an HTML fragment to final HTML text.",
+      "description": "Renders an HTML fragment to final HTML text without updating stored validation errors.",
+      "arguments": {"FRAGMENT": {"type": "STRING", "defaultValue": ""}}
+    },
+    {
+      "opcode": "renderWithValidation",
+      "blockType": "REPORTER",
+      "text": "render HTML with validation [FRAGMENT]",
+      "description": "Validates an HTML fragment, stores any validation errors, and renders final HTML text.",
+      "arguments": {"FRAGMENT": {"type": "STRING", "defaultValue": ""}}
+    },
+    {
+      "opcode": "lastValidationErrors",
+      "blockType": "REPORTER",
+      "text": "last HTML validation errors",
+      "description": "Returns validation errors stored by the most recent render HTML block.",
+      "arguments": {}
+    },
+    {
+      "opcode": "lastRenderHasValidationErrors",
+      "blockType": "BOOLEAN",
+      "text": "last rendered HTML has validation errors?",
+      "description": "Reports whether the most recent render HTML block stored validation errors.",
+      "arguments": {}
+    },
+    {
+      "opcode": "validateHtml",
+      "blockType": "REPORTER",
+      "text": "validate HTML [FRAGMENT]",
+      "description": "Returns simple validation diagnostics for an HTML fragment.",
+      "arguments": {"FRAGMENT": {"type": "STRING", "defaultValue": ""}}
+    },
+    {
+      "opcode": "isValidHtml",
+      "blockType": "BOOLEAN",
+      "text": "HTML [FRAGMENT] is valid?",
+      "description": "Reports whether simple validation found no HTML errors.",
       "arguments": {"FRAGMENT": {"type": "STRING", "defaultValue": ""}}
     },
     {
