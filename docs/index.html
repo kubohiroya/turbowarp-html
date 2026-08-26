@@ -30,6 +30,7 @@ render HTML [html result]</code></pre>
     <li>Event-handler attributes such as <code>onclick</code> are rejected.</li>
     <li>Executable URL schemes such as <code>javascript:</code> are rejected for link and image URLs.</li>
     <li>No raw HTML injection block is provided.</li>
+    <li>Educational CSS is supported with <code>style [CSS]</code>; JavaScript remains unsupported.</li>
   </ul>
 
   <h2>Common Blocks</h2>
@@ -40,6 +41,7 @@ render HTML [html result]</code></pre>
     <tbody>
       <tr><td>Content</td><td><code>text</code>, <code>concat</code>, <code>render</code>, <code>renderWithValidation</code></td></tr>
       <tr><td>Document</td><td><code>html</code>, <code>head</code>, <code>body</code>, <code>title</code></td></tr>
+      <tr><td>CSS</td><td><code>style</code>, normally placed inside <code>head</code></td></tr>
       <tr><td>Text structure</td><td><code>h1</code> through <code>h6</code>, <code>p</code>, <code>div</code>, <code>span</code></td></tr>
       <tr><td>Links and media</td><td><code>link</code>, <code>image</code></td></tr>
       <tr><td>Lists and tables</td><td><code>ul</code>, <code>ol</code>, <code>li</code>, <code>table</code>, <code>tr</code>, <code>th</code>, <code>td</code></td></tr>
@@ -49,6 +51,9 @@ render HTML [html result]</code></pre>
 
   <h2>HTTP Server Interoperability</h2>
   <p>For <code>turbowarp-http-server</code>, pass the rendered string as the response body and set <code>Content-Type: text/html; charset=utf-8</code>. The HTTP server does not need to depend on this package.</p>
+
+  <h2>Educational CSS</h2>
+  <p>Use <code>class</code> attributes on elements and define those classes with <code>style [CSS]</code> in <code>head</code>. CSS is useful for teaching presentation and layout, but it can also visually hide or imitate UI, so load projects only from trusted sources.</p>
 
   <h2>TypeScript API</h2>
   <p>The package also exports block-free builder functions from <code>@kubohiroya/turbowarp-html</code>, including <code>text</code>, <code>element</code>, common element factories, <code>withAttribute</code>, <code>concat</code>, <code>render</code>, <code>renderWithValidation</code>, and <code>validate</code>.</p>

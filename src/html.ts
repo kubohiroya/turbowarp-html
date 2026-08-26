@@ -54,7 +54,7 @@ const VOID_ELEMENTS = new Set([
   'track',
   'wbr'
 ]);
-const FORBIDDEN_TAGS = new Set(['script', 'style', 'iframe', 'object', 'embed']);
+const FORBIDDEN_TAGS = new Set(['script', 'iframe', 'object', 'embed']);
 const URL_ATTRIBUTES = new Set(['href', 'src']);
 const SAFE_URL_PATTERN = /^(?:https?:|mailto:|tel:|\/|\.\/|\.\.\/|#|\?|$)/iu;
 const TABLE_SECTION_ELEMENTS = new Set(['tbody', 'thead', 'tfoot']);
@@ -190,6 +190,10 @@ export function image(src: string, alt: string): HtmlElement {
   return withAttribute(withAttribute(element('img'), 'src', src), 'alt', alt);
 }
 
+export function style(css: string): HtmlElement {
+  return element('style', text(css));
+}
+
 export function createElementFactory(tagName: string): (content?: HtmlFragment | string) => HtmlElement {
   return (content: HtmlFragment | string = empty) => element(tagName, normalizeContent(content));
 }
@@ -198,6 +202,7 @@ export const html = createElementFactory('html');
 export const head = createElementFactory('head');
 export const body = createElementFactory('body');
 export const title = createElementFactory('title');
+export const styleElement = style;
 export const h1 = createElementFactory('h1');
 export const h2 = createElementFactory('h2');
 export const h3 = createElementFactory('h3');
@@ -298,6 +303,13 @@ function validateElementPlacement(
       message: 'title should be inside head.'
     });
   }
+  if (fragment.tagName === 'style' && parent?.tagName !== 'head') {
+    issues.push({
+      severity: 'warning',
+      path,
+      message: 'style should be inside head.'
+    });
+  }
   if (fragment.tagName === 'li' && parent?.tagName !== 'ul' && parent?.tagName !== 'ol') {
     issues.push({
       severity: 'error',
@@ -387,9 +399,33 @@ function renderElement(fragment: HtmlElement): string {
     .map(([name, value]) => ` ${name}="${escapeAttribute(value)}"`)
     .join('');
   if (isVoidElement(fragment.tagName)) return `<${fragment.tagName}${attributes}>`;
+  if (fragment.tagName === 'style') {
+    return `<style${attributes}>${renderStyleContent(fragment)}</style>`;
+  }
   return `<${fragment.tagName}${attributes}>${fragment.children.map(renderFragment).join('')}</${
     fragment.tagName
   }>`;
+}
+
+function renderStyleContent(fragment: HtmlElement): string {
+  return fragment.children.map(renderCssFragment).join('');
+}
+
+function renderCssFragment(fragment: HtmlFragment): string {
+  switch (fragment.kind) {
+    case 'empty':
+      return '';
+    case 'text':
+      return escapeStyleText(fragment.value);
+    case 'sequence':
+      return fragment.children.map(renderCssFragment).join('');
+    case 'element':
+      return escapeStyleText(renderElement(fragment));
+  }
+}
+
+function escapeStyleText(value: string): string {
+  return value.replace(/<\/style/giu, '<\\/style');
 }
 
 function normalizeTagName(tagName: string): string {

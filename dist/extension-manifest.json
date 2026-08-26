@@ -294,6 +294,16 @@
       ]
     },
     {
+      "opcode": "style",
+      "blockType": "REPORTER",
+      "arguments": [
+        {
+          "id": "CSS",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
       "opcode": "table",
       "blockType": "REPORTER",
       "arguments": [

@@ -29,6 +29,7 @@ import {
   renderWithValidation,
   select,
   span,
+  style,
   table,
   td,
   textarea,
@@ -142,6 +143,10 @@ export class HtmlExtension implements TurboWarpExtension {
 
   public title(args: {CONTENT: unknown}): string {
     return encode(title(decodeOrText(args.CONTENT)));
+  }
+
+  public style(args: {CSS: unknown}): string {
+    return encode(style(Scratch.Cast.toString(args.CSS)));
   }
 
   public h1(args: {CONTENT: unknown}): string {

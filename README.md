@@ -21,6 +21,8 @@ A TurboWarp extension for building HTML as immutable structured fragments and re
 
 Text node content is escaped by default. Attribute values are quoted and escaped. The initial version intentionally has no raw HTML block.
 
+CSS can be authored with the dedicated `style [CSS]` block for educational use. Prefer applying `class` attributes to elements and defining those classes in a `style [CSS]` block inside `head`. JavaScript and event-handler attributes remain unsupported. CSS can still visually hide, overlay, or imitate interface elements, so load projects only from sources you trust.
+
 ## Installation
 
 ```bash
@@ -44,6 +46,14 @@ const responseBody = render(page);
 ```
 
 For `turbowarp-http-server`, pass the rendered string as the response body and select `Content-Type: text/html; charset=utf-8`. The HTTP server does not need a package dependency on this extension.
+
+```ts
+import {body, concat, div, h1, head, html, render, style, withAttribute} from '@kubohiroya/turbowarp-html';
+
+const card = withAttribute(div('ready'), 'class', 'card');
+const page = html(concat(head(style('.card { color: red; }')), body(concat(h1('Server status'), card))));
+const responseBody = render(page);
+```
 
 ## Block reference
 
@@ -212,6 +222,16 @@ Creates a title element.
 | Type | Reporter |
 | Opcode | `title` |
 | `CONTENT` | String, default: `Status` |
+
+### `style [CSS]`
+
+Creates a style element for educational CSS.
+
+| Property | Value |
+|---|---|
+| Type | Reporter |
+| Opcode | `style` |
+| `CSS` | String, default: `.card { color: red; }` |
 
 ### `h1 [CONTENT]`
 

@@ -38,6 +38,7 @@ describe('HtmlExtension', () => {
     expect(info.blocks.map((block) => block.opcode)).toContain('textarea');
     expect(info.blocks.map((block) => block.opcode)).toContain('select');
     expect(info.blocks.map((block) => block.opcode)).toContain('option');
+    expect(info.blocks.map((block) => block.opcode)).toContain('style');
     expect(info.blocks.map((block) => block.opcode)).not.toContain('rawHtml');
   });
 
@@ -73,6 +74,17 @@ describe('HtmlExtension', () => {
 
     expect(extension.render({FRAGMENT: extension.concat({LEFT: select, RIGHT: notes})})).toBe(
       '<select name="source"><option>Camera</option></select><textarea>Notes &lt;escaped&gt;</textarea>'
+    );
+  });
+
+  it('builds educational CSS style blocks through reporter values', () => {
+    const extension = new HtmlExtension();
+    const style = extension.style({CSS: '.card { color: red; }'});
+    const head = extension.head({CONTENT: style});
+
+    expect(extension.render({FRAGMENT: head})).toBe('<head><style>.card { color: red; }</style></head>');
+    expect(extension.render({FRAGMENT: extension.style({CSS: '</style><p>bad</p>'})})).toBe(
+      '<style><\\/style><p>bad</p></style>'
     );
   });
 

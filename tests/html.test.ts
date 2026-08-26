@@ -10,6 +10,7 @@ import {
   getLastRenderValidationErrors,
   getLastRenderValidationResult,
   h1,
+  head,
   html,
   image,
   input,
@@ -21,6 +22,7 @@ import {
   render,
   renderWithValidation,
   select,
+  style,
   table,
   td,
   textarea,
@@ -71,6 +73,7 @@ describe('HTML builder API', () => {
 
   it('rejects dangerous names and URL schemes', () => {
     expect(() => element('script', text('alert(1)'))).toThrow('Unsafe or invalid HTML tag name');
+    expect(() => element('iframe', text('blocked'))).toThrow('Unsafe or invalid HTML tag name');
     expect(() => withAttribute(div('x'), 'onclick', 'alert(1)')).toThrow(
       'Unsafe or invalid HTML attribute name'
     );
@@ -81,6 +84,29 @@ describe('HTML builder API', () => {
     const document = html(body(concat(h1('Server status'), p('ready'))));
     expect(validate(document)).toEqual({valid: true, issues: []});
     expect(isValid(table(tr(td('ok'))))).toBe(true);
+  });
+
+  it('renders educational style elements without allowing style-tag breakout', () => {
+    expect(render(style('.card { color: red; }'))).toBe('<style>.card { color: red; }</style>');
+    expect(render(style('</style><script>alert(1)</script>'))).toBe(
+      '<style><\\/style><script>alert(1)</script></style>'
+    );
+  });
+
+  it('warns when style is outside head and accepts style inside head', () => {
+    expect(formatValidationResult(validate(style('.card{}')))).toContain(
+      'warning: $[0]: style should be inside head.'
+    );
+    expect(validate(html(head(style('.card{}'))))).toEqual({
+      valid: true,
+      issues: [
+        {
+          severity: 'warning',
+          path: '$[0]',
+          message: 'html should contain a body element.'
+        }
+      ]
+    });
   });
 
   it('reports validation errors for structural mistakes', () => {
