@@ -13,7 +13,7 @@
     blockIconURI: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3QgeD0iNiIgeT0iOCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzExODI4NSIvPjxwYXRoIGQ9Ik0xOCAxOEwxMiAyNGw2IDZNMzAgMThsNiA2LTYgNk0yNiAxNmwtNCAxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg=="
   };
   const extensionName = "TurboWarp HTML";
-  const blocks = [{ "opcode": "text", "blockType": "REPORTER", "text": "text [TEXT]", "description": "Creates an escaped HTML text fragment.", "arguments": { "TEXT": { "type": "STRING", "defaultValue": "Hello <world>" } } }, { "opcode": "element", "blockType": "REPORTER", "text": "element [TAG] content [CONTENT]", "description": "Creates a valid HTML element with escaped structured content.", "arguments": { "TAG": { "type": "STRING", "defaultValue": "section" }, "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "withAttribute", "blockType": "REPORTER", "text": "[ELEMENT] with attribute [NAME] = [VALUE]", "description": "Returns a new element with a safe escaped attribute value.", "arguments": { "ELEMENT": { "type": "STRING", "defaultValue": "" }, "NAME": { "type": "STRING", "defaultValue": "class" }, "VALUE": { "type": "STRING", "defaultValue": "card" } } }, { "opcode": "concat", "blockType": "REPORTER", "text": "[LEFT] followed by [RIGHT]", "description": "Creates a fragment sequence from two HTML fragments.", "arguments": { "LEFT": { "type": "STRING", "defaultValue": "" }, "RIGHT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "render", "blockType": "REPORTER", "text": "render HTML [FRAGMENT]", "description": "Renders an HTML fragment to final HTML text without updating stored validation errors.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "renderWithValidation", "blockType": "REPORTER", "text": "render HTML with validation [FRAGMENT]", "description": "Validates an HTML fragment, stores any validation errors, and renders final HTML text.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "lastValidationErrors", "blockType": "REPORTER", "text": "last HTML validation errors", "description": "Returns validation errors stored by the most recent render HTML block.", "arguments": {} }, { "opcode": "lastRenderHasValidationErrors", "blockType": "BOOLEAN", "text": "last rendered HTML has validation errors?", "description": "Reports whether the most recent render HTML block stored validation errors.", "arguments": {} }, { "opcode": "validateHtml", "blockType": "REPORTER", "text": "validate HTML [FRAGMENT]", "description": "Returns simple validation diagnostics for an HTML fragment.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "isValidHtml", "blockType": "BOOLEAN", "text": "HTML [FRAGMENT] is valid?", "description": "Reports whether simple validation found no HTML errors.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "link", "blockType": "REPORTER", "text": "link [CONTENT] URL [URL]", "description": "Creates an anchor with a conservatively validated URL.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "TurboWarp" }, "URL": { "type": "STRING", "defaultValue": "https://turbowarp.org/" } } }, { "opcode": "image", "blockType": "REPORTER", "text": "image URL [SRC] alt [ALT]", "description": "Creates a void image element with safe src and escaped alt text.", "arguments": { "SRC": { "type": "STRING", "defaultValue": "/status.png" }, "ALT": { "type": "STRING", "defaultValue": "status" } } }, { "opcode": "html", "blockType": "REPORTER", "text": "html [CONTENT]", "description": "Creates an html element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "head", "blockType": "REPORTER", "text": "head [CONTENT]", "description": "Creates a head element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "body", "blockType": "REPORTER", "text": "body [CONTENT]", "description": "Creates a body element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "title", "blockType": "REPORTER", "text": "title [CONTENT]", "description": "Creates a title element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Status" } } }, { "opcode": "style", "blockType": "REPORTER", "text": "style [CSS]", "description": "Creates a style element for educational CSS.", "arguments": { "CSS": { "type": "STRING", "defaultValue": ".card { color: red; }" } } }, { "opcode": "h1", "blockType": "REPORTER", "text": "h1 [CONTENT]", "description": "Creates an h1 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Server status" } } }, { "opcode": "h2", "blockType": "REPORTER", "text": "h2 [CONTENT]", "description": "Creates an h2 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h3", "blockType": "REPORTER", "text": "h3 [CONTENT]", "description": "Creates an h3 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h4", "blockType": "REPORTER", "text": "h4 [CONTENT]", "description": "Creates an h4 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h5", "blockType": "REPORTER", "text": "h5 [CONTENT]", "description": "Creates an h5 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h6", "blockType": "REPORTER", "text": "h6 [CONTENT]", "description": "Creates an h6 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "p", "blockType": "REPORTER", "text": "p [CONTENT]", "description": "Creates a paragraph element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Ready" } } }, { "opcode": "div", "blockType": "REPORTER", "text": "div [CONTENT]", "description": "Creates a div element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "span", "blockType": "REPORTER", "text": "span [CONTENT]", "description": "Creates a span element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "ul", "blockType": "REPORTER", "text": "ul [CONTENT]", "description": "Creates an unordered list element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "ol", "blockType": "REPORTER", "text": "ol [CONTENT]", "description": "Creates an ordered list element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "li", "blockType": "REPORTER", "text": "li [CONTENT]", "description": "Creates a list item element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "item" } } }, { "opcode": "table", "blockType": "REPORTER", "text": "table [CONTENT]", "description": "Creates a table element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "tr", "blockType": "REPORTER", "text": "tr [CONTENT]", "description": "Creates a table row element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "th", "blockType": "REPORTER", "text": "th [CONTENT]", "description": "Creates a table header cell element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Name" } } }, { "opcode": "td", "blockType": "REPORTER", "text": "td [CONTENT]", "description": "Creates a table data cell element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Value" } } }, { "opcode": "form", "blockType": "REPORTER", "text": "form [CONTENT]", "description": "Creates a form element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "label", "blockType": "REPORTER", "text": "label [CONTENT]", "description": "Creates a label element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Name" } } }, { "opcode": "input", "blockType": "REPORTER", "text": "input", "description": "Creates a void input element.", "arguments": {} }, { "opcode": "textarea", "blockType": "REPORTER", "text": "textarea [CONTENT]", "description": "Creates a textarea element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "select", "blockType": "REPORTER", "text": "select [CONTENT]", "description": "Creates a select element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "option", "blockType": "REPORTER", "text": "option [CONTENT]", "description": "Creates an option element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Choice" } } }, { "opcode": "button", "blockType": "REPORTER", "text": "button [CONTENT]", "description": "Creates a button element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Submit" } } }];
+  const blocks = [{ "opcode": "text", "blockType": "REPORTER", "text": "text [TEXT]", "description": "Creates an escaped HTML text fragment.", "arguments": { "TEXT": { "type": "STRING", "defaultValue": "Hello <world>" } } }, { "opcode": "element", "blockType": "REPORTER", "text": "element [TAG] content [CONTENT]", "description": "Creates a valid HTML element with escaped structured content.", "arguments": { "TAG": { "type": "STRING", "defaultValue": "section" }, "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "withAttribute", "blockType": "REPORTER", "text": "[ELEMENT] with attribute [NAME] = [VALUE]", "description": "Returns a new element with a safe escaped attribute value.", "arguments": { "ELEMENT": { "type": "STRING", "defaultValue": "" }, "NAME": { "type": "STRING", "defaultValue": "class" }, "VALUE": { "type": "STRING", "defaultValue": "card" } } }, { "opcode": "concat", "blockType": "REPORTER", "text": "[LEFT] followed by [RIGHT]", "description": "Creates a fragment sequence from two HTML fragments.", "arguments": { "LEFT": { "type": "STRING", "defaultValue": "" }, "RIGHT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "render", "blockType": "REPORTER", "text": "render HTML [FRAGMENT]", "description": "Renders an HTML fragment to final HTML text without updating stored validation errors.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "renderWithValidation", "blockType": "REPORTER", "text": "render HTML with validation [FRAGMENT]", "description": "Validates an HTML fragment, stores any validation errors, and renders final HTML text.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "lastValidationErrors", "blockType": "REPORTER", "text": "last HTML validation errors", "description": "Returns validation errors stored by the most recent render HTML block.", "arguments": {} }, { "opcode": "lastRenderHasValidationErrors", "blockType": "BOOLEAN", "text": "last rendered HTML has validation errors?", "description": "Reports whether the most recent render HTML block stored validation errors.", "arguments": {} }, { "opcode": "validateHtml", "blockType": "REPORTER", "text": "validate HTML [FRAGMENT]", "description": "Returns simple validation diagnostics for an HTML fragment.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "isValidHtml", "blockType": "BOOLEAN", "text": "HTML [FRAGMENT] is valid?", "description": "Reports whether simple validation found no HTML errors.", "arguments": { "FRAGMENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "link", "blockType": "REPORTER", "text": "link [CONTENT] URL [URL]", "description": "Creates an anchor with a conservatively validated URL.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "TurboWarp" }, "URL": { "type": "STRING", "defaultValue": "https://turbowarp.org/" } } }, { "opcode": "externalLink", "blockType": "REPORTER", "text": "external link [CONTENT] URL [URL]", "description": "Creates an anchor that opens in a new tab with safe rel attributes.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "TurboWarp" }, "URL": { "type": "STRING", "defaultValue": "https://turbowarp.org/" } } }, { "opcode": "image", "blockType": "REPORTER", "text": "image URL [SRC] alt [ALT]", "description": "Creates a void image element with safe src and escaped alt text.", "arguments": { "SRC": { "type": "STRING", "defaultValue": "/status.png" }, "ALT": { "type": "STRING", "defaultValue": "status" } } }, { "opcode": "turbowarpProjectFrame", "blockType": "REPORTER", "text": "TurboWarp project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]", "description": "Creates a safe iframe for playing a TurboWarp project.", "arguments": { "PROJECT_ID": { "type": "STRING", "defaultValue": "414716080" }, "TITLE": { "type": "STRING", "defaultValue": "TurboWarp project" }, "WIDTH": { "type": "STRING", "defaultValue": "482" }, "HEIGHT": { "type": "STRING", "defaultValue": "412" } } }, { "opcode": "scratchProjectFrame", "blockType": "REPORTER", "text": "Scratch project [PROJECT_ID] iframe title [TITLE] width [WIDTH] height [HEIGHT]", "description": "Creates a safe iframe for playing a Scratch project.", "arguments": { "PROJECT_ID": { "type": "STRING", "defaultValue": "104" }, "TITLE": { "type": "STRING", "defaultValue": "Scratch project" }, "WIDTH": { "type": "STRING", "defaultValue": "485" }, "HEIGHT": { "type": "STRING", "defaultValue": "402" } } }, { "opcode": "packagedProjectFrame", "blockType": "REPORTER", "text": "packaged TurboWarp project iframe URL [SRC] title [TITLE] width [WIDTH] height [HEIGHT]", "description": "Creates a safe iframe for playing a same-site TurboWarp Packager HTML file.", "arguments": { "SRC": { "type": "STRING", "defaultValue": "./project.html" }, "TITLE": { "type": "STRING", "defaultValue": "Packaged TurboWarp project" }, "WIDTH": { "type": "STRING", "defaultValue": "480" }, "HEIGHT": { "type": "STRING", "defaultValue": "360" } } }, { "opcode": "html", "blockType": "REPORTER", "text": "html [CONTENT]", "description": "Creates an html element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "head", "blockType": "REPORTER", "text": "head [CONTENT]", "description": "Creates a head element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "body", "blockType": "REPORTER", "text": "body [CONTENT]", "description": "Creates a body element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "title", "blockType": "REPORTER", "text": "title [CONTENT]", "description": "Creates a title element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Status" } } }, { "opcode": "style", "blockType": "REPORTER", "text": "style [CSS]", "description": "Creates a style element for educational CSS.", "arguments": { "CSS": { "type": "STRING", "defaultValue": ".card { color: red; }" } } }, { "opcode": "h1", "blockType": "REPORTER", "text": "h1 [CONTENT]", "description": "Creates an h1 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Server status" } } }, { "opcode": "h2", "blockType": "REPORTER", "text": "h2 [CONTENT]", "description": "Creates an h2 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h3", "blockType": "REPORTER", "text": "h3 [CONTENT]", "description": "Creates an h3 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h4", "blockType": "REPORTER", "text": "h4 [CONTENT]", "description": "Creates an h4 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h5", "blockType": "REPORTER", "text": "h5 [CONTENT]", "description": "Creates an h5 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "h6", "blockType": "REPORTER", "text": "h6 [CONTENT]", "description": "Creates an h6 element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Heading" } } }, { "opcode": "p", "blockType": "REPORTER", "text": "p [CONTENT]", "description": "Creates a paragraph element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Ready" } } }, { "opcode": "div", "blockType": "REPORTER", "text": "div [CONTENT]", "description": "Creates a div element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "span", "blockType": "REPORTER", "text": "span [CONTENT]", "description": "Creates a span element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "ul", "blockType": "REPORTER", "text": "ul [CONTENT]", "description": "Creates an unordered list element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "ol", "blockType": "REPORTER", "text": "ol [CONTENT]", "description": "Creates an ordered list element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "li", "blockType": "REPORTER", "text": "li [CONTENT]", "description": "Creates a list item element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "item" } } }, { "opcode": "table", "blockType": "REPORTER", "text": "table [CONTENT]", "description": "Creates a table element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "tr", "blockType": "REPORTER", "text": "tr [CONTENT]", "description": "Creates a table row element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "th", "blockType": "REPORTER", "text": "th [CONTENT]", "description": "Creates a table header cell element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Name" } } }, { "opcode": "td", "blockType": "REPORTER", "text": "td [CONTENT]", "description": "Creates a table data cell element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Value" } } }, { "opcode": "form", "blockType": "REPORTER", "text": "form [CONTENT]", "description": "Creates a form element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "label", "blockType": "REPORTER", "text": "label [CONTENT]", "description": "Creates a label element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Name" } } }, { "opcode": "input", "blockType": "REPORTER", "text": "input", "description": "Creates a void input element.", "arguments": {} }, { "opcode": "textarea", "blockType": "REPORTER", "text": "textarea [CONTENT]", "description": "Creates a textarea element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "select", "blockType": "REPORTER", "text": "select [CONTENT]", "description": "Creates a select element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "" } } }, { "opcode": "option", "blockType": "REPORTER", "text": "option [CONTENT]", "description": "Creates an option element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Choice" } } }, { "opcode": "button", "blockType": "REPORTER", "text": "button [CONTENT]", "description": "Creates a button element.", "arguments": { "CONTENT": { "type": "STRING", "defaultValue": "Submit" } } }];
   const definitions = {
     extensionName,
     blocks
@@ -39,6 +39,9 @@
   const FORBIDDEN_TAGS = /* @__PURE__ */ new Set(["script", "iframe", "object", "embed"]);
   const URL_ATTRIBUTES = /* @__PURE__ */ new Set(["href", "src"]);
   const SAFE_URL_PATTERN = /^(?:https?:|mailto:|tel:|\/|\.\/|\.\.\/|#|\?|$)/iu;
+  const URL_SCHEME_PATTERN = /^[a-z][a-z0-9+.-]*:/iu;
+  const PROJECT_ID_PATTERN = /^\d+$/u;
+  const FRAME_DIMENSION_PATTERN = /^[1-9]\d{0,4}$/u;
   const TABLE_SECTION_ELEMENTS = /* @__PURE__ */ new Set(["tbody", "thead", "tfoot"]);
   function text(value) {
     return { kind: "text", value };
@@ -141,8 +144,33 @@
   function link(content, url) {
     return withAttribute(element("a", normalizeContent(content)), "href", url);
   }
+  function externalLink(content, url) {
+    return withAttribute(withAttribute(link(content, url), "target", "_blank"), "rel", "noopener noreferrer");
+  }
   function image(src, alt) {
     return withAttribute(withAttribute(element("img"), "src", src), "alt", alt);
+  }
+  function turbowarpProjectFrame(projectId, titleText = "TurboWarp project", width = "482", height = "412") {
+    const normalizedProjectId = normalizeProjectId(projectId);
+    return projectFrame(
+      `https://turbowarp.org/${normalizedProjectId}/embed`,
+      titleText,
+      width,
+      height
+    );
+  }
+  function scratchProjectFrame(projectId, titleText = "Scratch project", width = "485", height = "402") {
+    const normalizedProjectId = normalizeProjectId(projectId);
+    return projectFrame(
+      `https://scratch.mit.edu/projects/${normalizedProjectId}/embed`,
+      titleText,
+      width,
+      height
+    );
+  }
+  function packagedProjectFrame(src, titleText = "Packaged TurboWarp project", width = "480", height = "360") {
+    validatePackagedProjectSrc(src);
+    return projectFrame(src.trim(), titleText, width, height);
   }
   function style(css) {
     return element("style", text(css));
@@ -288,6 +316,12 @@
     if (fragment.tagName === "a" && !hasAttribute(fragment, "href")) {
       issues.push({ severity: "warning", path, message: "a should have an href attribute." });
     }
+    if (fragment.tagName === "iframe" && !hasAttribute(fragment, "src")) {
+      issues.push({ severity: "error", path, message: "iframe requires a src attribute." });
+    }
+    if (fragment.tagName === "iframe" && !hasAttribute(fragment, "title")) {
+      issues.push({ severity: "warning", path, message: "iframe should have a title attribute." });
+    }
     if (fragment.tagName === "input" && !hasAttribute(fragment, "type")) {
       issues.push({ severity: "warning", path, message: "input should have a type attribute." });
     }
@@ -362,6 +396,51 @@
       throw new TypeError(`Unsafe URL value: ${value}`);
     }
   }
+  function normalizeProjectId(value) {
+    const normalized = value.trim();
+    if (!PROJECT_ID_PATTERN.test(normalized)) {
+      throw new TypeError(`Invalid Scratch project ID: ${value}`);
+    }
+    return normalized;
+  }
+  function validatePackagedProjectSrc(value) {
+    const trimmed = value.trim();
+    if (trimmed.length === 0 || URL_SCHEME_PATTERN.test(trimmed) || trimmed.startsWith("//") || hasControlCharacter(trimmed)) {
+      throw new TypeError(`Unsafe packaged project URL: ${value}`);
+    }
+  }
+  function hasControlCharacter(value) {
+    return [...value].some((character) => {
+      const code = character.charCodeAt(0);
+      return code <= 31 || code === 127;
+    });
+  }
+  function normalizeFrameDimension(value, name) {
+    const normalized = value.trim();
+    if (!FRAME_DIMENSION_PATTERN.test(normalized)) {
+      throw new TypeError(`Invalid iframe ${name}: ${value}`);
+    }
+    return normalized;
+  }
+  function projectFrame(src, titleText, width, height) {
+    return {
+      kind: "element",
+      tagName: "iframe",
+      attributes: {
+        allowfullscreen: "",
+        allowtransparency: "true",
+        frameborder: "0",
+        height: normalizeFrameDimension(height, "height"),
+        loading: "lazy",
+        scrolling: "no",
+        src,
+        style: "color-scheme: auto",
+        title: titleText,
+        width: normalizeFrameDimension(width, "width")
+      },
+      children: []
+    };
+  }
   function escapeText(value) {
     return value.replace(/&/gu, "&amp;").replace(/</gu, "&lt;").replace(/>/gu, "&gt;");
   }
@@ -419,8 +498,41 @@
     link(args) {
       return encode(link(decodeOrText(args.CONTENT), Scratch.Cast.toString(args.URL)));
     }
+    externalLink(args) {
+      return encode(externalLink(decodeOrText(args.CONTENT), Scratch.Cast.toString(args.URL)));
+    }
     image(args) {
       return encode(image(Scratch.Cast.toString(args.SRC), Scratch.Cast.toString(args.ALT)));
+    }
+    turbowarpProjectFrame(args) {
+      return encode(
+        turbowarpProjectFrame(
+          Scratch.Cast.toString(args.PROJECT_ID),
+          Scratch.Cast.toString(args.TITLE),
+          Scratch.Cast.toString(args.WIDTH),
+          Scratch.Cast.toString(args.HEIGHT)
+        )
+      );
+    }
+    scratchProjectFrame(args) {
+      return encode(
+        scratchProjectFrame(
+          Scratch.Cast.toString(args.PROJECT_ID),
+          Scratch.Cast.toString(args.TITLE),
+          Scratch.Cast.toString(args.WIDTH),
+          Scratch.Cast.toString(args.HEIGHT)
+        )
+      );
+    }
+    packagedProjectFrame(args) {
+      return encode(
+        packagedProjectFrame(
+          Scratch.Cast.toString(args.SRC),
+          Scratch.Cast.toString(args.TITLE),
+          Scratch.Cast.toString(args.WIDTH),
+          Scratch.Cast.toString(args.HEIGHT)
+        )
+      );
     }
     html(args) {
       return encode(html(decodeOrText(args.CONTENT)));

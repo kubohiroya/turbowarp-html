@@ -5,6 +5,7 @@ import {
   div,
   element,
   empty,
+  externalLink,
   formatValidationResult,
   getLastRenderValidationErrorText,
   getLastRenderValidationErrors,
@@ -17,10 +18,12 @@ import {
   isValid,
   li,
   link,
-  p,
   option,
+  p,
+  packagedProjectFrame,
   render,
   renderWithValidation,
+  scratchProjectFrame,
   select,
   style,
   table,
@@ -28,6 +31,7 @@ import {
   textarea,
   text,
   tr,
+  turbowarpProjectFrame,
   ul,
   validate,
   withAttribute
@@ -67,6 +71,24 @@ describe('HTML builder API', () => {
     );
   });
 
+  it('builds external links with new-tab safety attributes', () => {
+    expect(render(externalLink('TurboWarp', 'https://turbowarp.org/'))).toBe(
+      '<a href="https://turbowarp.org/" rel="noopener noreferrer" target="_blank">TurboWarp</a>'
+    );
+  });
+
+  it('builds dedicated project iframes without allowing generic iframe elements', () => {
+    expect(render(turbowarpProjectFrame('414716080', 'Example', '482', '412'))).toBe(
+      '<iframe allowfullscreen="" allowtransparency="true" frameborder="0" height="412" loading="lazy" scrolling="no" src="https://turbowarp.org/414716080/embed" style="color-scheme: auto" title="Example" width="482"></iframe>'
+    );
+    expect(render(scratchProjectFrame('104', 'Scratch Example', '485', '402'))).toBe(
+      '<iframe allowfullscreen="" allowtransparency="true" frameborder="0" height="402" loading="lazy" scrolling="no" src="https://scratch.mit.edu/projects/104/embed" style="color-scheme: auto" title="Scratch Example" width="485"></iframe>'
+    );
+    expect(render(packagedProjectFrame('./project.html', 'Packaged Example', '480', '360'))).toBe(
+      '<iframe allowfullscreen="" allowtransparency="true" frameborder="0" height="360" loading="lazy" scrolling="no" src="./project.html" style="color-scheme: auto" title="Packaged Example" width="480"></iframe>'
+    );
+  });
+
   it('supports generic valid elements', () => {
     expect(render(element('article', p('news')))).toBe('<article><p>news</p></article>');
   });
@@ -78,6 +100,10 @@ describe('HTML builder API', () => {
       'Unsafe or invalid HTML attribute name'
     );
     expect(() => link('bad', 'javascript:alert(1)')).toThrow('Unsafe URL value');
+    expect(() => turbowarpProjectFrame('abc')).toThrow('Invalid Scratch project ID');
+    expect(() => packagedProjectFrame('https://example.com/project.html')).toThrow(
+      'Unsafe packaged project URL'
+    );
   });
 
   it('validates common successful structures', () => {

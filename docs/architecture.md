@@ -20,7 +20,9 @@ Builder operations return new fragment values. Rendering is the only operation t
 
 Text content escapes `&`, `<`, and `>`. Attribute values are always quoted and also escape `"`.
 
-Tag and attribute names must match a conservative HTML-name pattern. The initial release rejects `script`, `style`, `iframe`, `object`, and `embed` elements, rejects `on*` attributes, and rejects unsafe `href`/`src` URL schemes such as `javascript:`.
+Tag and attribute names must match a conservative HTML-name pattern. Generic `script`, `iframe`, `object`, and `embed` elements are rejected, `on*` attributes are rejected, and unsafe `href`/`src` URL schemes such as `javascript:` are rejected.
+
+Playable Scratch, TurboWarp, and same-site TurboWarp Packager project embeds are exposed through dedicated iframe builders instead of the generic element builder. Scratch and TurboWarp builders construct known embed URLs from numeric project IDs. Packager embeds accept relative URLs so they remain same-site project files rather than arbitrary remote pages.
 
 There is no raw HTML block in v1.
 

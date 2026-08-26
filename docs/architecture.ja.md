@@ -10,7 +10,9 @@ HTML は immutable な `text`、`element`、`sequence`、`empty` フラグメン
 
 テキストは `&`、`<`、`>` をエスケープします。属性値は quoted attribute として出力し、`"` もエスケープします。
 
-タグ名と属性名は保守的な名前パターンで検証します。初期版では `script`、`style`、`iframe`、`object`、`embed`、`on*` 属性、`javascript:` などの危険な `href`/`src` URL を拒否します。raw HTML ブロックは v1 では提供しません。
+タグ名と属性名は保守的な名前パターンで検証します。汎用の `script`、`iframe`、`object`、`embed` 要素、`on*` 属性、`javascript:` などの危険な `href`/`src` URL は拒否します。
+
+Scratch、TurboWarp、同一サイト上の TurboWarp Packager HTML 作品の再生用 iframe は、汎用 element builder ではなく専用 builder からだけ作ります。Scratch/TurboWarp 用 builder は数値の project ID から既知の embed URL を組み立てます。Packager 用 builder は相対 URL だけを受け付け、任意の外部ページ埋め込みにならないようにします。raw HTML ブロックは v1 では提供しません。
 
 ## バリデーション
 

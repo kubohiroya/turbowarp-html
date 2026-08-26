@@ -57,6 +57,9 @@ const VOID_ELEMENTS = new Set([
 const FORBIDDEN_TAGS = new Set(['script', 'iframe', 'object', 'embed']);
 const URL_ATTRIBUTES = new Set(['href', 'src']);
 const SAFE_URL_PATTERN = /^(?:https?:|mailto:|tel:|\/|\.\/|\.\.\/|#|\?|$)/iu;
+const URL_SCHEME_PATTERN = /^[a-z][a-z0-9+.-]*:/iu;
+const PROJECT_ID_PATTERN = /^\d+$/u;
+const FRAME_DIMENSION_PATTERN = /^[1-9]\d{0,4}$/u;
 const TABLE_SECTION_ELEMENTS = new Set(['tbody', 'thead', 'tfoot']);
 
 export function text(value: string): HtmlText {
@@ -186,8 +189,52 @@ export function link(content: HtmlFragment | string, url: string): HtmlElement {
   return withAttribute(element('a', normalizeContent(content)), 'href', url);
 }
 
+export function externalLink(content: HtmlFragment | string, url: string): HtmlElement {
+  return withAttribute(withAttribute(link(content, url), 'target', '_blank'), 'rel', 'noopener noreferrer');
+}
+
 export function image(src: string, alt: string): HtmlElement {
   return withAttribute(withAttribute(element('img'), 'src', src), 'alt', alt);
+}
+
+export function turbowarpProjectFrame(
+  projectId: string,
+  titleText = 'TurboWarp project',
+  width = '482',
+  height = '412'
+): HtmlElement {
+  const normalizedProjectId = normalizeProjectId(projectId);
+  return projectFrame(
+    `https://turbowarp.org/${normalizedProjectId}/embed`,
+    titleText,
+    width,
+    height
+  );
+}
+
+export function scratchProjectFrame(
+  projectId: string,
+  titleText = 'Scratch project',
+  width = '485',
+  height = '402'
+): HtmlElement {
+  const normalizedProjectId = normalizeProjectId(projectId);
+  return projectFrame(
+    `https://scratch.mit.edu/projects/${normalizedProjectId}/embed`,
+    titleText,
+    width,
+    height
+  );
+}
+
+export function packagedProjectFrame(
+  src: string,
+  titleText = 'Packaged TurboWarp project',
+  width = '480',
+  height = '360'
+): HtmlElement {
+  validatePackagedProjectSrc(src);
+  return projectFrame(src.trim(), titleText, width, height);
 }
 
 export function style(css: string): HtmlElement {
@@ -361,6 +408,12 @@ function validateRequiredAttributes(
   if (fragment.tagName === 'a' && !hasAttribute(fragment, 'href')) {
     issues.push({severity: 'warning', path, message: 'a should have an href attribute.'});
   }
+  if (fragment.tagName === 'iframe' && !hasAttribute(fragment, 'src')) {
+    issues.push({severity: 'error', path, message: 'iframe requires a src attribute.'});
+  }
+  if (fragment.tagName === 'iframe' && !hasAttribute(fragment, 'title')) {
+    issues.push({severity: 'warning', path, message: 'iframe should have a title attribute.'});
+  }
   if (fragment.tagName === 'input' && !hasAttribute(fragment, 'type')) {
     issues.push({severity: 'warning', path, message: 'input should have a type attribute.'});
   }
@@ -449,6 +502,61 @@ function validateSafeUrl(value: string): void {
   if (!SAFE_URL_PATTERN.test(trimmed)) {
     throw new TypeError(`Unsafe URL value: ${value}`);
   }
+}
+
+function normalizeProjectId(value: string): string {
+  const normalized = value.trim();
+  if (!PROJECT_ID_PATTERN.test(normalized)) {
+    throw new TypeError(`Invalid Scratch project ID: ${value}`);
+  }
+  return normalized;
+}
+
+function validatePackagedProjectSrc(value: string): void {
+  const trimmed = value.trim();
+  if (
+    trimmed.length === 0 ||
+    URL_SCHEME_PATTERN.test(trimmed) ||
+    trimmed.startsWith('//') ||
+    hasControlCharacter(trimmed)
+  ) {
+    throw new TypeError(`Unsafe packaged project URL: ${value}`);
+  }
+}
+
+function hasControlCharacter(value: string): boolean {
+  return [...value].some((character) => {
+    const code = character.charCodeAt(0);
+    return code <= 0x1f || code === 0x7f;
+  });
+}
+
+function normalizeFrameDimension(value: string, name: string): string {
+  const normalized = value.trim();
+  if (!FRAME_DIMENSION_PATTERN.test(normalized)) {
+    throw new TypeError(`Invalid iframe ${name}: ${value}`);
+  }
+  return normalized;
+}
+
+function projectFrame(src: string, titleText: string, width: string, height: string): HtmlElement {
+  return {
+    kind: 'element',
+    tagName: 'iframe',
+    attributes: {
+      allowfullscreen: '',
+      allowtransparency: 'true',
+      frameborder: '0',
+      height: normalizeFrameDimension(height, 'height'),
+      loading: 'lazy',
+      scrolling: 'no',
+      src,
+      style: 'color-scheme: auto',
+      title: titleText,
+      width: normalizeFrameDimension(width, 'width')
+    },
+    children: []
+  };
 }
 
 function escapeText(value: string): string {
