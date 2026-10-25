@@ -1,5 +1,7 @@
 # TurboWarp HTML
 
+<img src="assets/block-icon.svg" alt="" width="48" height="48">
+
 [English](README.md)
 
 TurboWarp 上で HTML を immutable な構造化フラグメントとして組み立て、最後の出力境界でだけ HTML 文字列へレンダリングする拡張です。
