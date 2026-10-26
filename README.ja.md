@@ -28,6 +28,7 @@ CSS を使う場合は、要素に `class` 属性を付け、`head` 内の `styl
 ## 開発
 
 ```bash
+npm install --global corepack@latest
 corepack enable
 pnpm install --frozen-lockfile
 pnpm run check
