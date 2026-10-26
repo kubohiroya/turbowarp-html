@@ -18,7 +18,7 @@ A TurboWarp extension for building HTML as immutable structured fragments and re
 
 ## Requirements and safety
 
-- Node.js 22 or newer;
+- Node.js 24 or newer;
 - pnpm through Corepack;
 - TurboWarp's unsandboxed extension option is not required.
 
@@ -31,6 +31,7 @@ Generic `iframe` elements remain unsupported. Use the dedicated Scratch, TurboWa
 ## Installation
 
 ```bash
+npm install --global corepack@latest
 corepack enable
 pnpm install --frozen-lockfile
 ```
