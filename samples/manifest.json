@@ -1,0 +1,21 @@
+{
+  "baseURL": "https://kubohiroya.github.io/turbowarp-html/",
+  "extension": {
+    "id": "kubohiroyahtml",
+    "bundle": "dist/turbowarp-html.js",
+    "unsandboxed": false
+  },
+  "samples": [
+    {
+      "name": "build-html-card",
+      "title": "Build an escaped HTML card",
+      "checks": [
+        {
+          "variable": "html",
+          "equals": "<h1>Demo</h1><p>Hello &lt;world&gt;</p>"
+        }
+      ],
+      "instructions": "HTML contains a heading and safely escaped <world> text."
+    }
+  ]
+}
