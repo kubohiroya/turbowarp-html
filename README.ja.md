@@ -6,6 +6,15 @@
 
 TurboWarp 上で HTML を immutable な構造化フラグメントとして組み立て、最後の出力境界でだけ HTML 文字列へレンダリングする拡張です。
 
+## 実行できるサンプル
+
+[**TurboWarp Editorでデモを開く**](https://turbowarp.org/editor?project_url=https%3A%2F%2Fkubohiroya.github.io%2Fturbowarp-html%2Fsamples%2Fbuild-html-card.sb3) · [SB3をダウンロード](https://kubohiroya.github.io/turbowarp-html/samples/build-html-card.sb3)
+
+**Allow**で読み込みを許可し、緑の旗を押します。
+`h1`・`p`・`render`で小さなカードのHTML文字列を生成。サンプルの元データと期待結果は[`samples/README.md`](samples/README.md)に記載しています。
+
+`pnpm run samples:build`でSB3を再生成し、`pnpm run samples:check`で更新漏れと生成処理を確認します。
+
 ## 概要
 
 - エスケープ済みテキスト、要素、属性、兄弟フラグメント列を作れます。
