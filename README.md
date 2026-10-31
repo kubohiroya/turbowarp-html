@@ -540,6 +540,16 @@ Use `render HTML [FRAGMENT]` when validation is not needed. Use `render HTML wit
 
 Validation is intentionally lightweight. It catches common mistakes such as void elements with children, misplaced `li`/table cells, nested forms, missing important `img` attributes, and unusual `html`/`head`/`body` structure. It is not a full HTML conformance checker.
 
+## Parse and read with Document Data
+
+The `turbowarp-html:v1:` values are a build format, not a tree meant for reading: the children of an element such as `ul` can sit inside a nested `sequence` fragment. To read or replace parts of a document you built, or to walk its structure, render it and pass the string to [TurboWarp Document Data](https://github.com/kubohiroya/turbowarp-document-data):
+
+```text
+parse HTML (render HTML (fragment)) as document [doc]
+```
+
+Document Data keeps the parsed HTML as a tree of element, text and comment nodes whose children are always flat `children` arrays, and its blocks read and replace text by location. The two extensions share no package dependency and exchange only the rendered string, so this extension keeps running in the sandbox; Document Data itself runs without the sandbox.
+
 ## Development
 
 ```bash

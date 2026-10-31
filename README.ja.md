@@ -34,6 +34,16 @@ CSS を使う場合は、要素に `class` 属性を付け、`head` 内の `styl
 
 `turbowarp-http-server` とは npm パッケージ依存では結合しません。HTML 拡張で作ったフラグメントを `render HTML` で文字列化し、HTTP レスポンス本文として渡してください。content type は `text/html; charset=utf-8` を明示する想定です。
 
+## Document Dataで解析・読み取りする
+
+`turbowarp-html:v1:`の値は組み立て用の形式で、読み取るための木ではありません。`ul`などの子要素が入れ子の`sequence`にまとまったまま入ることがあります。組み立てた文書の一部を読み取ったり置き換えたり、構造を順にたどったりするときは、`render HTML`で文字列にして[TurboWarp Document Data](https://github.com/kubohiroya/turbowarp-document-data)へ渡してください。
+
+```text
+parse HTML (render HTML (fragment)) as document [doc]
+```
+
+Document Dataは解析したHTMLをelement・text・commentのノードの木として保持し、子は常に平らな`children`配列に並びます。位置を指定してtextを読み取り・置き換えるblockがあります。2つの拡張はnpmパッケージ依存を持たず、描画した文字列だけを受け渡すため、この拡張はサンドボックス内のまま動作します。Document Data自体はサンドボックスなしで動作します。
+
 ## 開発
 
 ```bash
