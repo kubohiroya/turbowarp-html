@@ -1,6 +1,6 @@
 {
   "name": "@kubohiroya/turbowarp-html",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A safe immutable HTML builder extension for TurboWarp.",
   "author": {
     "name": "Hiroya Kubo",
@@ -74,5 +74,11 @@
     "typescript-eslint": "^8.66.0",
     "vite": "^8.2.2",
     "vitest": "^4.1.10"
+  },
+  "turbowarpExtension": {
+    "resourceDeclaration": {
+      "schemaVersion": 1,
+      "resources": []
+    }
   }
 }
